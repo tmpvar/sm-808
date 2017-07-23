@@ -2,23 +2,21 @@ const Pattern = require('../models/pattern')
 const test = require('tape')
 
 test('new Pattern() (default length)', function (t) {
-  const pattern = new Pattern('harpsichord')
-  t.equal(pattern.instrument, 'harpsichord', 'instrument matches')
+  const pattern = new Pattern()
   t.equal(pattern.notes.length, 8, 'defaults to 8 steps')
   t.deepEqual(pattern.notes, Array(8).fill(0))
   t.end()
 })
 
 test('new Pattern() (multiple of 8)', function (t) {
-  const pattern = new Pattern('tuba', 16)
-  t.equal(pattern.instrument, 'tuba', 'instrument matches')
+  const pattern = new Pattern(16)
   t.equal(pattern.notes.length, 16, '16 steps')
   t.deepEqual(pattern.notes, Array(16).fill(0))
   t.end()
 })
 
 test('Pattern#setNote (idx in bounds)', function (t) {
-  const pattern = new Pattern('bass', 4)
+  const pattern = new Pattern(4)
 
   t.ok(pattern.setNote(3, 1), 'setNote in bounds')
   t.ok(pattern.setNote(2, 2), 'setNote in bounds')
@@ -30,7 +28,7 @@ test('Pattern#setNote (idx in bounds)', function (t) {
 })
 
 test('Pattern#setNote (idx invalid)', function (t) {
-  const pattern = new Pattern('fiddle', 4)
+  const pattern = new Pattern(4)
 
   t.notOk(pattern.setNote(10, 1), 'setNote idx out of bounds')
   t.notOk(pattern.setNote(1 / 0, 1), 'setNote idx out of bounds')
@@ -41,7 +39,7 @@ test('Pattern#setNote (idx invalid)', function (t) {
 })
 
 test('Pattern#setNote (velocity NaN/Infinity)', function (t) {
-  const pattern = new Pattern('fiddle', 4)
+  const pattern = new Pattern(4)
 
   t.notOk(pattern.setNote(1, 'hello'), 'invalid velocity (NaN)')
   t.notOk(pattern.setNote(2, 1 / 0), 'invalid velocity (Infinity)')
@@ -51,7 +49,7 @@ test('Pattern#setNote (velocity NaN/Infinity)', function (t) {
 })
 
 test('Pattern#setNote (velocity out of bounds)', function (t) {
-  const pattern = new Pattern('fiddle', 4)
+  const pattern = new Pattern(4)
 
   t.ok(pattern.setNote(1, 123123), 'velocity out of bounds')
   t.deepEqual(pattern.notes, [0, 255, 0, 0], 'no notes were set')
@@ -63,10 +61,10 @@ test('Pattern#setNote (velocity out of bounds)', function (t) {
 })
 
 test('Pattern#step (no notes)', function (t) {
-  const pattern = new Pattern('gong', 4)
+  const pattern = new Pattern(4)
 
   const result = []
-  const expected = Array(16).fill(false)
+  const expected = Array(16).fill(0)
   for (var i = 0; i < 16; i++) {
     result.push(pattern.step(i))
   }
@@ -76,13 +74,13 @@ test('Pattern#step (no notes)', function (t) {
 })
 
 test('Pattern#step (every 4th)', function (t) {
-  const pattern = new Pattern('gong', 4)
+  const pattern = new Pattern(4)
   const result = []
   const expected = [
-    'gong', false, false, false,
-    'gong', false, false, false,
-    'gong', false, false, false,
-    'gong', false, false, false
+    1, 0, 0, 0,
+    1, 0, 0, 0,
+    1, 0, 0, 0,
+    1, 0, 0, 0
   ]
 
   pattern.setNote(0, 1)
@@ -96,10 +94,10 @@ test('Pattern#step (every 4th)', function (t) {
 })
 
 test('Pattern#step (every note)', function (t) {
-  const pattern = new Pattern('gong', 4)
+  const pattern = new Pattern(4)
 
   const result = []
-  const expected = Array(16).fill('gong')
+  const expected = Array(16).fill(1)
 
   pattern.setNote(0, 1)
   pattern.setNote(1, 1)
