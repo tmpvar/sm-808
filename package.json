@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "test": "tape test/test-*.js"
+  },
+  "devDependencies": {
+    "tape": "^4.7.0"
+  }
+}
