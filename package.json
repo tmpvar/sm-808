@@ -1,8 +1,16 @@
 {
   "scripts": {
-    "test": "tape test/test-*.js"
+    "test": "tape test/test-*.js",
+    "dev-web": "budo --live --open web/entry.js",
+    "start": "electron ./electron/main.js"
   },
+  "main": "electron/main.js",
   "devDependencies": {
     "tape": "^4.7.0"
+  },
+  "dependencies": {
+    "dom-classes": "^1.0.0",
+    "electron": "^1.6.11",
+    "qel": "^1.0.0"
   }
 }

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>sm-808</title>
+    <style media="screen">
+      html,body {
+        padding: 0;
+        margin: 0;
+        background-color: #33362B;
+        color: white;
+        font: 1em sans-serif;
+        -webkit-user-select: none;
+        -webkit-app-region: drag;
+      }
+
+      button, input[type=range] {
+        cursor: pointer;
+      }
+
+      button, input, .control {
+        -webkit-app-region: no-drag;
+      }
+
+      #header {
+        color: #EE1900;
+        height: 15px;
+      }
+
+      .logo {
+        background: url('assets/svg/logo.svg') no-repeat;
+        display:inline-block;
+        height: 19px;
+        width: 112px
+      }
+
+      #header .logo {
+        margin-right: 50px;
+      }
+
+      #pattern table {
+        border-collapse: collapse;
+      }
+
+      #pattern table {
+        border-collapse: collapse;
+        background: #6F7D75;
+      }
+
+      #pattern thead, #pattern tfoot tr {
+        background-color: #33362B;
+      }
+
+      #pattern thead th {
+        font-size: 10px
+      }
+
+      #pattern thead th.active {
+        color: #FF2203;
+      }
+
+      #pattern thead th.em {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      #pattern table tbody td:first-child, #pattern table thead th:first-child {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      #pattern table th, #pattern table tfoot td {
+        background: #6F7D75;
+        color: #33362B;
+        border: #6F7D75;
+        margin-left: 5px;
+        text-align: left;
+      }
+
+      #pattern table thead th {
+        padding-top: 10px;
+        padding-bottom: 5px;
+        height: 25px;
+        cursor: default;
+        text-align: center;
+      }
+
+      #pattern table thead th:not(:first-child) {
+        text-align: center;
+
+      }
+
+      #pattern table thead th:last-child, #pattern table tfoot td:last-child {
+        background: #33362B;
+        padding: 0;
+        margin:0
+      }
+
+      #pattern table tr .cap {
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        position: relative;
+        background: #6F7D75;
+        height: 100%;
+        width: 100%;
+      }
+
+      #pattern tbody td {
+        cursor: default;
+      }
+
+      #pattern tbody tr:first-child td:nth-child(2){
+        border-top-left-radius: 3px;
+      }
+
+      #pattern tbody tr:last-child td:nth-child(2){
+        border-bottom-left-radius: 3px;
+      }
+
+      #pattern tbody td:first-child {
+        text-align: left;
+        color: #33362B;
+        background: #6F7D75;
+        text-transform: uppercase;
+        font-weight: bold
+      }
+      #pattern tbody td:not(:first-child) {
+        background-color: #33362B;
+      }
+
+      #pattern tbody td:not(:first-child) button {
+        border: 0;
+        height: 40px;
+        width: 25px;
+        margin-left: 10px;
+        margin-top: 10px;
+        position: relative;
+        padding: 0;
+      }
+
+      #pattern tbody tr:last-child td button {
+        margin-bottom: 10px;
+      }
+
+      #pattern tbody td input {
+        line-height: 20px;
+        padding: 2px;
+      }
+
+      #pattern tbody td button {
+        background: url(assets/svg/button.svg);
+        width: 25px;
+        height: 40px;
+      }
+
+      light {
+        background-color: #550B01;
+        border: 2px solid rgba(0, 0, 0, .5);
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        padding: 0;
+        border-radius: 50%;
+        top: 4px;
+        left: 9px;
+      }
+
+      light.on {
+        background-color: #FF2203;
+        border: 2px solid rgba(255, 144, 87, .5);
+      }
+
+      tfoot td {
+        height: 100px
+        padding: 0;
+        margin: 0;
+      }
+
+      #pattern table tfoot td {
+        background: #33362B;
+        position: relative;
+        padding:0;
+      }
+
+      #pattern table tfoot td:first-child > div {
+        border-bottom-right-radius: 3px;
+        margin: 0;
+        width: 100%;
+        height: 100px;
+        background: #6F7D75;
+      }
+
+      #pattern table tfoot td .cap {
+        height: 50%;
+        position: absolute;
+        top:0;
+      }
+
+      #pattern table tfoot td .logo-wrap {
+        position:absolute;
+        top: 50%;
+        right: 0px;
+        width: 100%;
+        height: 50%;
+
+        border-top-left-radius: 3px;
+        background: #33362B;
+        z-index: 2;
+      }
+      #pattern table tfoot td .logo-wrap .logo {
+        position:absolute;
+        top: 25%;
+        right: 0px;
+        width: 87%;
+        height: 50%;
+        color: #6F7D75;
+        padding-top: 20px;
+        padding-left: 4px;
+        cursor: default;
+        font-size: 13px;
+        letter-spacing: .25px;
+      }
+
+      #pattern table tfoot td .inner-corner {
+        position:absolute;
+        top:50%;
+        left: 0px;
+        width: 10px;
+        height: 10px;
+        background: #6F7D75;
+        z-index: 1;
+      }
+
+      #pattern .controls {
+        position: relative;
+      }
+
+      #pattern .playback {
+        background: #7A8E85 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVQoU2NkIAKUlJT4MhJSB1LU09OzGa9CmCKQYTgVIivCqRBdEVaF2BRhKMSlCEUhPkVwhYQUgRUSowikEABayyW0HA9A3QAAAABJRU5ErkJggg==) repeat;
+        height: 70px;
+        width: 68px;
+        margin-top: 15px;
+        margin-left: 15px;
+        padding: 10px;
+        border-radius: 3px;
+        font-size: 12px;
+        border: 2px solid #33362B;
+        box-shadow: 2px 2px 1px 1px #33362B;
+      }
+
+      #pattern td button.down {
+        box-shadow: 0px 0px 0px 0px #33362B;
+      }
+
+      #pattern .playback.playing {
+        background-color: #EDD404;
+      }
+
+      #pattern .playback hr {
+        border: 0;
+        border-top: 1px solid black;
+        width: 85%;
+      }
+
+      #pattern .analyzer {
+        right: 15px;
+        position: absolute;
+        margin-top: 15px;
+        border: 1px solid #000;
+        display: inline-block;
+        border-radius: 3px;
+      }
+
+      #pattern button.power {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        height: 36px;
+        width: 95px;
+        font-size: 12px;
+        border-radius: 3px;
+        background: #FF2203 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVQoU2NkIAKUlJT4MhJSB1LU09OzGa9CmCKQYTgVIivCqRBdEVaF2BRhKMSlCEUhPkVwhYQUgRUSowikEABayyW0HA9A3QAAAABJRU5ErkJggg==) repeat;
+        box-shadow: 2px 2px 1px 1px #33362B;
+        border: 1px solid #33362B;
+        padding: 0;
+      }
+
+      #pattern .sliders {
+        position: absolute;
+        height: 70px;
+        width: 260px;
+        top: 15px;
+        left: 98px;
+        font-size: 12px;
+      }
+
+      #pattern .sliders .text, #pattern .sliders .control {
+        position: relative;
+        display: inline-block;
+        height: 28px;
+        padding-top: 5px;
+      }
+
+      #pattern .sliders .text {
+        width: 55px;
+        height: 16px;
+        text-align: right;
+        font-weight: bold;
+      }
+
+      #pattern .sliders .control {
+        width: 185px;
+        margin-left: 10px
+      }
+
+      #pattern .sliders input[type=range] {
+        width: 142px;
+      }
+      #pattern .sliders input[type=text] {
+        background: hsl(200, 100%, 46%) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVQoU2NkIAKUlJT4MhJSB1LU09OzGa9CmCKQYTgVIivCqRBdEVaF2BRhKMSlCEUhPkVwhYQUgRUSowikEABayyW0HA9A3QAAAABJRU5ErkJggg==) repeat;
+        border-radius: 3px;
+        font-size: 12px;
+        border: 2px solid #33362B;
+        text-align: center;
+        padding: 2px;
+      }
+
+      input[type=range]{
+          -webkit-appearance: none;
+      }
+
+      input[type=range]::-webkit-slider-runnable-track {
+        height: 8px;
+        background: #33362B;
+        border: 1px solid #646D56;
+      }
+
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        height: 26px;
+        width: 18px;
+        border-radius: 3px;
+        background: url(assets/svg/slider.svg) no-repeat;
+        border: 1px solid #33362B;
+        margin-top: -10px;
+        box-shadow: 1px 1px 1px 1px #33362B;
+      }
+
+      input[type=range]:focus::-webkit-slider-runnable-track {
+        background: #33362B;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="header"></section>
+    <section id="pattern">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th class='em'>1</th><th>2</th><th>3</th><th>4</th>
+            <th class='em'>1</th><th>2</th><th>3</th><th>4</th>
+            <th class='em'>1</th><th>2</th><th>3</th><th>4</th>
+            <th class='em'>1</th><th>2</th><th>3</th><th>4</th>
+            <th><div class="cap" /></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>kick</td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>snare</td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>hat</td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td><button><light /></button></td>
+            <td></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="14">
+              <div>
+                <div class="controls">
+                  <button class="playback">
+                    START
+                    <hr />
+                    STOP
+                  </button>
+
+                  <div class="sliders">
+                    <div class="volume">
+                      <div class="text">VOLUME</div>
+                      <div class="control">
+                        <input type="text" size="3" value="75" />
+                        <input type="range" min="0" max="100" step="1" value="75" />
+                      </div>
+                    </div>
+                    <div class="tempo">
+                      <div class="text">TEMPO</div>
+                      <div class="control">
+                        <input type="text" size="3" value="128" />
+                        <input type="range" min="30" max="240" step="1" value="128" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <canvas width="200" height="70" class="analyzer"></canvas>
+                </div>
+
+              </div>
+            </td>
+            <td colspan="4">
+              <div class="cap">
+                <button class="power">POWER</button>
+              </div>
+              <div class="logo-wrap">
+                <div class="logo">drum apparatus</div>
+              </div>
+              <div class="inner-corner"><div>
+            </td>
+          </tr>
+        </tfoot>
+
+      </table>
+    </section>
+  </body>
+
+  <script>
+    require('./client.js')
+  </script>
+
+</html>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="100.35" height="22.5" viewBox="0, 0, 223, 50">
+  <g id="Layer_2">
+    <path d="M34.325,19.037 L23.012,38.324 L12.054,19.037 L15.654,19.037 L23.099,32.142 L30.786,19.037 L34.325,19.037 z M42.753,4.669 L3.892,4.669 L9.835,15.131 L13.434,15.131 L9.369,7.975 L37.275,7.975 L33.078,15.131 L36.616,15.131 L42.753,4.669 z" fill="#EE1900"/>
+    <text transform="matrix(1, 0, 0, 1, 187.288, 28.86)">
+      <tspan x="-141.423" y="8.979" font-family="ShreeDev0714-Bold" font-size="44" kerning="0" fill="#EE1900">TMPVAR</tspan>
+    </text>
+  </g>
+</svg>
