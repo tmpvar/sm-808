@@ -1,7 +1,6 @@
 {
   "scripts": {
     "test": "tape test/test-*.js",
-    "dev-web": "budo --live --open web/entry.js",
     "start": "electron ./electron/main.js"
   },
   "main": "electron/main.js",
