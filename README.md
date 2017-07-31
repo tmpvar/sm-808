@@ -13,7 +13,7 @@ to determine if the current 'global step' matches any notes that need to be play
 
 Instances of `Song` enable much of what you would expect in a sequencer
 
-- global step - which is used to drives patterns
+- global step - which is used to drive `Pattern`s
 - play/pause/stop
 - live BPM control via `Song#setBPM`
 - some sugar for manipulating patterns
@@ -66,3 +66,13 @@ Run the following command in the `sm-808` folder to check out the electron app!
 ```
 npm start
 ```
+
+## TODO
+
+There are an infinite number of things that I didn't get around to in favor of shipping this thing!
+
+- playing notes with velocity - the core engine is capable of this, but the UI would have to change to accomidate it.
+- patterns of varying lengths - the core engine supports this, but again the UI would need to change.
+- better timers - currently using `setInterval` which is not very accurate
+- composing patterns into a larger set of arrangements (read: fruity loops)
+- a billion other things
