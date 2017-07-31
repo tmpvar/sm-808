@@ -14,26 +14,24 @@ function createSpectro (analyser, canvas) {
   const dataArray = new Uint8Array(bufferLength)
   const ctx = canvas.getContext('2d')
 
-  const width = (canvas.width * (window.devicePixelRatio || 1)) | 0
-  const height = (canvas.height * (window.devicePixelRatio || 1)) | 0
   const ledWidth = 12
   const ledHeight = 6
-  const halfWidth = (width / 2) | 0
-  const halfHeight = (height / 2) | 0
 
   function draw () {
+    const width = canvas.width
+    const height = canvas.height
     window.requestAnimationFrame(draw)
 
     analyser.getByteTimeDomainData(dataArray)
 
     ctx.fillStyle = backgroundColor
-    ctx.fillRect(0, 0, halfWidth, halfHeight)
+    ctx.fillRect(0, 0, width, height)
 
     ctx.lineWidth = 1
     ctx.strokeStyle = borderColor
     ctx.save()
     ctx.scale(1, -1)
-    ctx.translate(5, -halfHeight + 5)
+    ctx.translate(5, -height + 5)
     ctx.beginPath()
 
     for (var i = 0; i < bufferLength; i += 2) {
@@ -55,7 +53,6 @@ function createSpectro (analyser, canvas) {
       }
     }
 
-    ctx.lineTo(width, halfHeight)
     ctx.stroke()
     ctx.restore()
   };
