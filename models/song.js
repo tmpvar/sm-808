@@ -13,11 +13,12 @@ module.exports = Song
  * @param {Number} bpm - unsigned integer representing the beats per minute
  */
 function Song (bpm) {
-  this.bpm = bpm || 60
+  this.setBPM(bpm || 60)
 
   this.patterns = {}
   this.timer = null
   this.position = 0
+  this.lastStep = 0
 }
 
 /**
@@ -38,6 +39,13 @@ function Song (bpm) {
  * @returns {undefined}
  */
 Song.prototype.step = function (onStep) {
+  const now = Date.now()
+  if (now - this.lastStep < this.msPerStep) {
+    return
+  }
+
+  this.lastStep = now
+
   // compute the notes that need to be played at this moment in time
   const notes = Object.keys(this.patterns).map((instrument) => {
     if (this.patterns[instrument].step(this.position)) {
@@ -65,9 +73,22 @@ Song.prototype.play = function (onStep) {
 
   // TODO: setInterval is not a very accurate timer, which will either make
   //       the beat super funky or make peoples ears bleed.
-  const msPerStep = 1000 * (((60 / this.bpm) * 4) / 8)
   onStep = onStep || Function.prototype
-  this.timer = setInterval(this.step.bind(this, onStep), msPerStep)
+  this.setBPM(this.bpm)
+  this.timer = setInterval(this.step.bind(this, onStep), 0)
+  this.lastStep = 0
+  this.step(onStep)
+}
+
+/**
+  * Change the bpm of the song
+  *
+  * @param {int} bpm - beats per minute
+  * @returns {undefined}
+  */
+Song.prototype.setBPM = function (bpm) {
+  this.bpm = bpm
+  this.msPerStep = 1000 * (((60 / this.bpm) * 4) / 8)
 }
 
 /**

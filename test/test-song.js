@@ -40,8 +40,6 @@ test('Song#play (w/ onStep)', function (t) {
   song.setPattern('kick', [1, 2, 3, 4, 5, 6, 7, 8])
   song.setPattern('trombone', [1, 0, 1, 0])
 
-  song.play(onStep)
-
   const result = []
   const expect = [
     ['kick', 'trombone'],
@@ -53,6 +51,8 @@ test('Song#play (w/ onStep)', function (t) {
     ['kick', 'trombone'],
     ['kick']
   ]
+
+  song.play(onStep)
 
   function onStep (position, notes) {
     result.push(notes)
