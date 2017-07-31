@@ -23,7 +23,7 @@ Instances of `Song` enable much of what you would expect in a sequencer
 You'll want to have git and Node 6+ installed and then run the following command:
 
 ```
-git clone git@github.com/tmpvar/sm-808.git
+git clone git@github.com:tmpvar/sm-808.git
 cd sm-808
 npm install
 ```
