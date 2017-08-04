@@ -1,6 +1,6 @@
 # sm-808
 
-This is my javascript interpretation/implementation of the [slicers/sm-808] coding challenge.
+This is my javascript interpretation/implementation of the [slicers/sm-808](https://github.com/splicers/sm-808) coding challenge.
 
 The core functionality lives in [models](models) and includes:
 
